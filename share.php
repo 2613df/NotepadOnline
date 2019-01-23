@@ -1,20 +1,47 @@
 <?php
 $visit=true;
-include_once "./lib/config.php";
-$path = $FOLDER."/".substr($name,6);
-$file_head = file_get_contents($path,FALSE,NULL,0,47);
 $readOnly=true;
-include "./content/templates/default/header.php";
-?>
-<div class="txa">
-<?php	if (substr($file_head,0,15) == $pw_tag ){
-			echo '<pre class="form-control content">'.htmlspecialchars(file_get_contents($path,FALSE,NULL,47))."</pre>";
+include_once "./lib/config.php";
+include_once "./lib/do.php";
+include $templateFolder."header.php";
+include $templateFolder."show.php";
+
+
+if($_POST["share"]=="0" and $_SESSION[dataEncrypt(substr($name,6))]){
+	$do=1;
+	if ($isEncrypted){
+		if($fileShare=="0"){
+			echo loadTips("shareCloseAlready");
 		}else{
-			echo '<pre class="form-control content">'.htmlspecialchars(file_get_contents($path))."</pre>";
+		$tt = $pwTag.$filePw."0".file_get_contents($path,FALSE,NULL,$fileHeadLen);
+		file_put_contents($path, $tt);
+		echo loadTips("shareCloseSucceed");
+		die();
 		}
+	}else{
+		echo loadTips("shareCloseError");
+	}
+}elseif($_POST["share"]=="0" and !$_SESSION[dataEncrypt(substr($name,6))]){
+	$do=1;
+	if($fileShare=="0"){
+		echo loadTips("shareCloseAlready");
+	}else{
+		echo loadTips("shareCloseError");
+	}
+}
+
+
+if(!$do){
+	if(substr($name,0,6)==substr(md5(substr($name,6)),3,6)){
+		if($fileShare){
+			($isEncrypted)?(print showNotes_RO("encrypted")):(print showNotes_RO("decoded"));
+		}else{
+			echo loadTips("shareNotAllowed");
+		}
+	}else{
+		echo loadTips("shareUrlError");
+	}
+}
+
+include $templateFolder."footer.php";
 ?>
-</div>
-
-
-
-<?php ($readOnly) ? (include "./content/templates/default/footer_nobtn.php"):(include "./content/templates/default/footer.php");?>
