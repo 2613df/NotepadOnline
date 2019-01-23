@@ -1,57 +1,33 @@
 <?php ($visit) ? ("") : (header('location: /'));?>
 <?php
-//Í³Ò»Ç°ÖÃÅäÖÆÎÄ¼þ
-
-error_reporting(E_ALL^E_NOTICE^E_WARNING);//ÆÁ±ÎÒòÕÒ²»µ½±Ê¼Ç»º´æ¶øµ¼ÖÂµÄ´íÎó
-
-$name = sanitize_file_name($_GET["f"]);
-
-/**
-
-Èç¹ûÐèÒªÍ³Ò»µÄÒ»¸ö¹Ì¶¨URL£¬ÐèÉèÖÃÎª
-$URL = "http://notepad.live";
-
-Èç¹ûÔÊÐíÓÃ»§×ÔÓÉ·ÃÎÊ¿Õ¼ä°ó¶¨µÄÓòÃû£¬Ôò²ÉÓÃÈçÏÂÄ¬ÈÏÉèÖÃ
-$URL = "http://".$_SERVER["HTTP_HOST"];
-
+/**				è¿™æ˜¯äº‘ç¬”è®°çš„é…ç½®æ–‡ä»¶
+**
+**	å³ä½¿è§£é‡Šå®Œå¤‡ï¼Œä½†å¦‚æžœæ‚¨ä¸å…·å¤‡PHPçš„åŸºç¡€çŸ¥è¯†ï¼Œä¸å»ºè®®ä¿®æ”¹å†…å®¹
 **/
 
+
+//ç»Ÿä¸€URLå‰ç¼€(ä¸æ”¯æŒå­ç›®å½•)
+$URL = "http://".$_SERVER["HTTP_HOST"];
+/*
+é»˜è®¤æƒ…å†µä¸‹è‡ªåŠ¨èŽ·å–åŸŸååœ°å€ï¼Œå³
 $URL = "http://".$_SERVER["HTTP_HOST"];
 
-//»º´æÄÚÈÝ´æ·ÅÎÄ¼þ¼Ð
+ä½†å¦‚æžœæ‚¨éœ€è¦è®¾å®šä¸€ä¸ªå›ºå®šURLï¼Œè¯·è®¾ç½®ä¸º $URL = "æ‚¨çš„åŸŸå"; ï¼Œå¦‚
+$URL = "http://n.94joy.cn";
+
+æ³¨æ„ï¼Œæš‚ä¸æ”¯æŒå¯¹å­ç›®å½•çš„å›ºå®šURLè®¾å®šï¼Œå¦‚"http://www.94joy.cn/notepad/",è®¾å®šåŽä¼šå‡ºçŽ°ä¸å¯å¼¥è¡¥çš„é”™è¯¯ã€‚
+å°†ä¼šåœ¨æ•°ä¸ªç‰ˆæœ¬åŽæ”¯æŒå­ç›®å½•äº‘ç¬”è®°çš„æ­å»º
+*/
+
+//ç¼“å­˜å†…å®¹å­˜æ”¾æ–‡ä»¶å¤¹
 $FOLDER = "_tmp";
 
-//ÃÜÂë±êÊ¶Ç°×º
-$pw_tag = "**@_#PassWord**";
+//å¯†ç æ ‡è¯†å‰ç¼€(ç›®å‰åªæ”¯æŒ15ä¸ªå­å­—ç¬¦ä¸²ï¼Œå°†å¯èƒ½åœ¨æ•°ä¸ªç‰ˆæœ¬åŽæ”¯æŒä»»æ„é•¿åº¦çš„å­—ç¬¦ä¸²)
+$pwTag = "**@_#PassWord**";
 
+//ä¸»é¢˜ä¸Žèµ„æ–™åº“é…ç½®
+define("contentFolder","./content");//å®šä¹‰èµ„æ–™åº“æ–‡ä»¶å¤¹åœ°å€ï¼Œæœ«å°¾ä¸å¸¦çŸ­æ–œçº¿
+$template="default";//å®šä¹‰å½“å‰ä¸»é¢˜
+$templateFolder=contentFolder."/templates/".$template."/";//èŽ·å–å½“å‰ä¸»é¢˜æ–‡ä»¶å¤¹åœ°å€
 	
-function sanitize_file_name($filename) {
-	//½è¼øÓÚWordpress
-	$special_chars = array("?", "[", "]", "/", "\\", "=", "<", ">", ":", ";", ",", "'", "\"", "&", "$", "#", "*", "(", ")", "|", "~", "`", "!", "{", "}", ".");
-	$filename = str_replace($special_chars, '', $filename);
-	$filename = preg_replace('/[\s-]+/', '-', $filename);
-	$filename = trim($filename, '.-_');
-	return $filename;
-}
-
- function randomkeys($length){
-	//»ñÈ¡a-zµÄËæ»ú×Ö·û´®µÄº¯Êý
-	$output='';	
-	for ($a = 0; $a<$length; $a++) {	
-		$output .= chr(mt_rand(97, 122));	
-	}	
-	return $output;	
-}
-
-if (!isset($_GET["f"])) {
-	//Èç¹ûÓÃ»§Ã»ÓÐÉè¶¨URLºó×º£¬ÔòËæ»ú»ñÈ¡²¢Ìø×ª
-	$name=randomkeys(4);
-	while (file_exists($FOLDER."/".$name) && strlen($name) < 10) {
-		$name=randomkeys(4);
-	}
-	if (strlen($name) < 10) {
-		header("Location: ".$URL."/".$name);
-	}
-	die();
-}
 ?>
