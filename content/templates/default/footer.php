@@ -1,6 +1,6 @@
 <?php ($visit) ? ("") : (header('location: /'));?>
 <div id="controls">
-	<span>试试在其他设备上打开<?php echo $_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"] ?></span>
+	<span>试试在其他设备上打开<?php echo $URL."/".$isShareFolder.$name;?></span>
   <?php
     if(!$do and !$readOnly){//底部按钮
       $confirm="javascript:if(confirm('重置笔记将会使当前笔记内容丢失，并同时分配一个新的笔记地址，请确认您知道这么做的后果！')){location='/'}";
@@ -27,6 +27,11 @@
 </div>
 
 
+
+<!--备用的BootStrap JS 3.4以及Jquery 1.11.1地址
+<script src="/<?php echo $templateFolder."assets/js/jquery.min.js";?>"></script>
+<script src="/<?php echo $templateFolder."assets/js/bootstrap.min.js";?>"></script>
+-->
 <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="/assets/js/jquery.textarea.js"></script>
 <script src="/assets/js/script.js"></script>

@@ -1,5 +1,18 @@
+
 RewriteEngine On
+
 RewriteRule ^share/([^.]+)$ share.php?f=$1 [QSA,PT,L]
+
+
+#RewriteRule ^([a-zA-Z0-9_@^+(){},/~`]+)$ index.php?f=$1
+
+
 RewriteRule ^([^.]+)$ index.php?f=$1 [QSA,PT,L]
+#RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?f=$1 [QSA,PT,L]
+
+
+
+#RewriteRule ^/?([a-zA-Z0-9]+)$ index.php?f=$1
+
 ErrorDocument 404 /
 ErrorDocument 403 /

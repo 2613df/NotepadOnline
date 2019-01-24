@@ -26,8 +26,8 @@ $FOLDER = "_tmp";
 $pwTag = "**@_#PassWord**";
 
 //主题与资料库配置
-define("contentFolder","./content");//定义资料库文件夹地址，末尾不带短斜线
-$template="default";//定义当前主题
+define("contentFolder","content");//定义资料库文件夹地址，末尾不带短斜线
+$template="B421";//定义当前主题
 $templateFolder=contentFolder."/templates/".$template."/";//获取当前主题文件夹地址
 	
 ?>

@@ -27,6 +27,15 @@ if (isset($_POST["checkpw"])) {//检查密码正确性
 
 
 
+if (isset($_POST["goto"])) {//页面跳转，另建此函数而不是让程序直接发送名为f的GET请求是为了提高安全性
+	$do=1;
+	$gotoPed = str_replace(array("/"," ","."),"",trim($_POST["goto"]));//可有可无
+	header("Location: ".$URL."/".$gotoPed);
+	die();
+}
+
+
+
 if (isset($_POST["setpw"])) {//用户设定密码页面
 	$do=1;
 	if(!$isEncrypted){
@@ -41,7 +50,7 @@ if (isset($_POST["setpw"])) {//用户设定密码页面
 if (isset($_POST["setpw2"])) {//后台处理用户设定密码的操作
 	$do=1;
 	if(!$isEncrypted){
-		if($_POST["submit_pw"]){
+		if($_POST["submit_pw"] or $_POST["submit_pw"]==="0"){
 			$new_text = $pwTag.dataEncrypt($_POST['submit_pw'])."0".file_get_contents($path);
 			file_put_contents($path, $new_text);
 			echo loadTips("setPwSucceed");
@@ -53,7 +62,7 @@ if (isset($_POST["setpw2"])) {//后台处理用户设定密码的操作
 		}
 	}else{
 		if (dataEncrypt($_POST["submit_pw_old"]) == $filePw ){
-				if($_POST["submit_pw"]){
+				if($_POST["submit_pw"] or $_POST["submit_pw"]==="0"){
 					$new_text = $pwTag.dataEncrypt($_POST['submit_pw']).$fileShare.file_get_contents($path,FALSE,NULL,$fileHeadLen);
 					file_put_contents($path, $new_text);
 					echo loadTips("setPwSucceed");
@@ -100,11 +109,8 @@ if ($_POST["share"]=="1" and $_SESSION[dataEncrypt($name)]) {//开放分享权�
 		$tt = $pwTag.$filePw."1".file_get_contents($path,FALSE,NULL,$fileHeadLen);
 		file_put_contents($path, $tt);
 
-	}//else{
-		//$tt = $_POST["t"];
-	//}
+	}
 	echo loadTips("shareOpen");
-	die();
 }/*elseif($_POST["share"]=="0" and $_SESSION[dataEncrypt(substr($name,6))]){
 	$do=1;
 	if ($isEncrypted){
