@@ -22,6 +22,10 @@ NPO的活水源头来源于EverTools基金会的NotePad_Live(你现在仍然可�
 实际上n.94joy.cn不算Demo，应该说本项目是n.94joy.cn的开源代码
 **n.94joy.cn是公益项目**
 
+### 下载NPO
+你可以访问 https://github.com/2613df/NotepadOnline/releases
+也可以去云存档 http://open.94joy.cn/server/cloud/Programs/94NotepadOnline/
+
 ## 快拿银子来砸我吧！
 用爱发电是持不久的，作者没饭吃NPO项目也难以为继。因此NPO项目需要各位大大的帮助，如果您有能力赞助NPO项目，欢迎扫码拿钱来砸我！1元也可！砸我的同时请在备注里写明您的网名或真名。我会把您提供给我们的信息贴在衣食父母墙上(基于自愿)，如果您愿意，也可以给我们您的联系方式以便日后联系。
 
