@@ -20,7 +20,7 @@ $pwLen=strlen(dataEncrypt("1"));//获取密码标识符前缀长度
 $fileHeadLen=$pwTagLen+$pwLen+1;
 global $fileHeadLen;
 $isShareFolder=($readOnly)?("share/"):("");
-
+global $URL;
 
 
 function dataEncrypt($data){
