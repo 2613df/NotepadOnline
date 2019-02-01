@@ -22,12 +22,12 @@ $URL = "http://n.94joy.cn";
 //缓存内容存放文件夹
 $FOLDER = "_tmp";
 
-//密码标识前缀(目前只支持15个子字符串，将可能在数个版本后支持任意长度的字符串)
+//密码标识前缀(前缀用于区分加密与否，请不要过于简单)
 $pwTag = "**@_#PassWord**";
 
 //主题与资料库配置
 define("contentFolder","content");//定义资料库文件夹地址，末尾不带短斜线
-$template="B421";//定义当前主题
+$template="default";//定义当前主题
 $templateFolder=contentFolder."/templates/".$template."/";//获取当前主题文件夹地址
 	
 ?>

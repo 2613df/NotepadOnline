@@ -76,8 +76,7 @@ $filePw=substr($file_head,$pwTagLen,$pwLen);
 
 
 //判断是否加密
-//$isLocked=substr($file_head,0,15) == $pwTag ? 1:0;
-$isEncrypted=substr($file_head,0,15) == $pwTag ? 1:0;
+$isEncrypted=substr($file_head,0,$pwTagLen) == $pwTag ? 1:0;
 $fileShare = ($isEncrypted)?(file_get_contents($path,FALSE,NULL,$fileHeadLen-1,1)):("1");
 session_start();
 ?>

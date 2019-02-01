@@ -3,10 +3,17 @@ $visit=true;
 $readOnly=false;
 include_once "./lib/config.php";
 include_once "./lib/do.php";
+
+if(strtoupper($name)=="OFFLINE"){
+	$do=1;
+	$offline="1";
+	$name="offline";
+	include $templateFolder."header.php";
+	include "./lib/offline.php";
+	die();
+}
 include $templateFolder."header.php";
 include $templateFolder."show.php";
-
-
 
 //if(!$isEncrypted){
 $_SESSION[dataEncrypt($name)]=(!$isEncrypted)?(1):($_SESSION[dataEncrypt($name)]);
