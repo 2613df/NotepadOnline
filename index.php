@@ -160,16 +160,3 @@ if(!$do){//读取笔记内容
 
 include $templateFolder."footer.php";
 ?>
-
-<!--div align="center">
-<p>N.94joy.cn是一个最简洁的云笔记本，您可以使用任意的域名后缀来自定义您的笔记地址。<br>
-比如直接访问 <a href="http://n.94joy.cn/zidingyi">http://n.94joy.cn/zidingyi</a> 即可建立一个自定义地址的云笔记，特别适用于跨平台快速传输一些文本内容。</p>
-<p>由于NotePad.cc停止运营，于是一些用户便发起了NotePad.live的公益项目，并由EverTools基金会托管。<br>
-而由于这个平台的极度便利性，不少人当然也包括我一直在使用，然而好景不长，宣称永不关闭的NotePad.live的公益项目已经无法打开。<br>
-我无法忘记那天晚上当我打不开notepad.live这个网址时的难过，于是我便决定独自发起 N.94joy.cn 的云笔记公益项目。<br>
-我无法作出永不关闭这一难以达成的承诺，但只要服务器不宕机、不丢失文件，域名还是由我管理，这个公益项目就会一直存在。<br>
-如果您觉得这个云笔记本好用，请推荐给身边的人了解。</p>
-<p>Copyright&copy;2018 94joy.cn<br>
-版权所有 只为乐趣<br>
-沪ICP备18047966号</p>
-</div-->

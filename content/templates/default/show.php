@@ -21,7 +21,7 @@ function loadTips($sort){
 	}elseif($sort=="shareNotAllowed"){//笔记未开放分享权限
 		$out.='<div class="alert alert-warning" role="alert"><h4 class="alert-heading">笔记的原主人没给别人偷看Ta笔记的能力喔，所以你看不了的啦</h4></div>';
 	}elseif($sort=="shareOpen"){//开放分享权限界面
-		$out.='<div class="alert alert-success" role="alert"><h4 class="alert-heading">你已经打开了一道口子，分享权限开启成功</h4><p>注意：任何人获得只读页地址后均可无密访问您的笔记，尽管分享页的笔记是只读的<br>如果您要关闭分享，请前往分享页在底部关闭分享</p><hr><img src="https://tool.kd128.com/qrcode?text='.$GLOBALS["URL"].$GLOBALS["shareLink"].'"/><p>分享页地址：'.$GLOBALS["URL"].$GLOBALS["shareLink"].'<br><div class="btn-group"><a href="'.$GLOBALS["shareLink"].'" class="btn btn-warning" target="_blank">前往分享页</a><a href="javascript:void(0)" class="btn btn-light" onclick="history.go(-1)">返回</a></div></p></div>';
+		$out.='<div class="alert alert-success" role="alert"><h4 class="alert-heading">你已经打开了一道口子，分享权限开启成功</h4><p>注意：任何人获得只读页地址后均可无密访问您的笔记，尽管分享页的笔记是只读的<br>如果您要关闭分享，请前往分享页在底部关闭分享</p><hr><img src="http://qr.topscan.com/api.php?text='.$GLOBALS["URL"].$GLOBALS["shareLink"].'"/><p>分享页地址：'.$GLOBALS["URL"].$GLOBALS["shareLink"].'<br><div class="btn-group"><a href="'.$GLOBALS["shareLink"].'" class="btn btn-warning" target="_blank">前往分享页</a><a href="javascript:void(0)" class="btn btn-light" onclick="history.go(-1)">返回</a></div></p></div>';
 	}elseif($sort=="shareCloseSucceed"){//分享权限关闭成功
 		$out.='<div class="alert alert-success" role="alert"><h4 class="alert-heading">你把这道口子关上啦！3s后原地返回</h4></div><meta http-equiv="refresh" content="3; url=/share/'.$_GET["f"].'">';
 	}elseif($sort=="shareCloseError"){//分享权限关闭失败
