@@ -36,7 +36,7 @@ NPO原型是EverTools基金会的NotePad_Live。之所以延续NotePad_Live是�
 
 ## 快拿银子来砸我吧！
 用爱发电是持不久的，作者没饭吃NPO项目也难以为继。因此NPO项目需要各位大大的帮助，如果您有能力赞助NPO项目，欢迎扫码拿钱来砸我！1元也可！  
-![推荐使用微信赞助](https://github.com/2613df/NotepadOnline/raw/master/assets/image/wechatpay.png)  
+![推荐使用微信赞助](http://n.94joy.cn/assets/image/wechatpay.png)  
 非常感谢您了！！！！！  
 如果您是学生且愿意支持这个项目的话，就请将这个项目或是n.94joy.cn这个网址推荐给身边的同学吧，如果能点个星星就更好了，万分感谢您的支持。  
 如果你对项目或是网站发展有建议的话，请在Github上发表您的想法，我会第一时间处理！
