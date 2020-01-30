@@ -16,7 +16,8 @@ $(document).ready(function(){
   }
 
   $('#clearNotes').on('click', function(){
-    $('#content').val('').focus();
+    // $('#content').val('').focus();
+    editor.txt.html('');
   });
 	
 

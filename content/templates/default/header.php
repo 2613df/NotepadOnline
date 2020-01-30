@@ -14,30 +14,64 @@
 	
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark">
-	<div class="container">
-		<span class="navbar-brand"><?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</span>
+	<nav class="navbar navbar-expand-lg navbar-light">
+	<!-- <div class="container"> -->
 		<div class="btn-group">
+			<a href="/" id="newPageBtn" class="btn btn-light" target="_blank" data-toggle="tooltip" data-placement="bottom" title="新建一个空白文档"><i class="fas fa-plus"></i></a>
+			<a href="javascript:void(0)" class="btn btn-light" onclick="history.go(0)" data-toggle="tooltip" data-placement="bottom" title="刷新页面"><i class="fas fa-sync-alt"></i></a>
+		</div>
+		<span class="navbar-brand">&nbsp;&nbsp;<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</span><span id="processOK"> ...</span>&nbsp;
+		<!-- <div class="btn-group">
 			<a href="#" class="btn btn-light" id="clearNotes">清空</a>
 			<a class="btn btn-dark" id="mode" title="Enable dark mode">🌘</a>
-		</div>
+		</div> -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item <?php ($offline)?(""):(print "active"); ?>">
+				<!-- <li class="nav-item <?php ($offline)?(""):(print "active"); ?>">
 					<a class="nav-link" href="/">云笔记</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="http://www.94joy.cn" target="_blank">返回主站</a>
-				</li>
+				</li> -->
 			</ul>
-		  <form class="form-inline my-2 my-lg-0" action="/<?php echo $esL;?>" id="goto" method="POST">
-			<input type="text" name="f" class="form-control" placeholder="笔记后缀,如 <?php print $name;?>">
-			<input type="submit" value="前往" class="btn btn-outline-light">
-		  </form>
+		  <div class="btn-group">
+			<a tabindex="0" id="teamworkBtn" class="btn btn-light" role="button" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="开发日志" data-content='"协作"功能目前正在开发中，可能会在数个版本后更新，也可能中途被砍掉'><i class="fas fa-user-friends"></i>&nbsp;协作</a>
+			<a href="#" class="btn btn-light" id="shareBtn" data-toggle="tooltip" data-placement="bottom" title="只读分享给他人"><i class="fas fa-share-square"></i>&nbsp;分享</a>
+			<a href="#" class="btn btn-light" id="configBtn" data-toggle="modal" data-target="#configWindow"><i class="fas fa-cog"></i></a>
+		  </div>
+		  <div class="btn-group">
+			<button type="button" class="btn btn-success" id = "keyJudgeBtn" data-toggle="modal" data-target="#keyJudgeWindow" style="display: none;">输入密码</button>
+			<button type="button" class="btn btn-info" id = "shareSuccessBtn" data-toggle="modal" data-target="#shareWindow" style="display: none;">分享成功</button>
+		  </div>
+		&nbsp;&nbsp;
+		<div class="dropdown" id="moreTog">
+		  <a class="btn btn-light dropdown-toggle" type="button" id="moreBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <i class="fas fa-ellipsis-v"></i>
+		  </a>
+		  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="moreBtn">
+			<form class="px-4 py-3" action="/<?php echo $esL;?>" method="POST" target="_blank">
+			<div class="form-group">
+			  <label>找回笔记</label>
+			  <input type="text" class="form-control" name="f" placeholder="笔记后缀，如 <?php print $name;?>">
+			</div>
+			<button type="submit" class="btn btn-primary">前往</button>
+			</form>
+		    <div class="dropdown-divider"></div>
+		    <a class="dropdown-item disabled" href="#">创建副本（开发中）</a>
+		    <a class="dropdown-item disabled" href="#">另存为副本（开发中）</a>
+		    <div class="dropdown-divider"></div>
+		    <a class="dropdown-item disabled" href="#">历史回溯（开发中）</a>
+		    <a class="dropdown-item disabled" href="#">文档信息（开发中）</a>
+		    <div class="dropdown-divider"></div>
+		    <a class="dropdown-item" href="#" id = "versionBtn" data-toggle="modal" data-target="#versionWindow">关于</a>
+		    <!-- <button type="button" class="btn btn-secondary" id = "versionBtn" data-toggle="modal" data-target="#versionWindow">关于</button> -->
+		  </div>
 		</div>
+
 		</div>
+		<!-- </div> -->
 	</nav>

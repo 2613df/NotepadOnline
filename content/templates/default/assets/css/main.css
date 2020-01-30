@@ -1,12 +1,29 @@
 /*基于BootStrap 3调整的CSS代码,Written By MyJoy(94joy.cn)*/
-.navbar{background-color: #4cb4e7;}
+.navbar{
+	background-color: /*#4cb4e7*/#fff;
+	user-select: none;
+	box-shadow: 0 0 20px 1rem #ebebeb;
+}
 .container {
     padding-right: 0px;
     padding-left: 0px;
     margin-right: auto;
     margin-left: auto;
 }
-
+/*#editorDiv{
+	height:100% !important;
+}*/
+.w-e-text-container{
+/*	height:inherit !important;
+*/}
+.w-e-toolbar{
+	flex-wrap: wrap;
+	background-color:#f7f7f7;
+	/*line-height: 1.5rem;*/
+}
+.modal{
+	z-index: 20000;
+}
 /*nav{
 padding-right: 0 !important;
 padding-left: 0 !important;
@@ -24,7 +41,7 @@ padding-left: 1rem !important;
 
 }*/
 .containerContent{
-	height:calc(100% - 8.5rem);
+	height:calc(100% - 3.5rem);
 }
 .containerTips,.containerForm{
 	height:calc(100% - 6rem);
@@ -101,7 +118,12 @@ pre {
 	word-wrap:break-word;
 }
 body {
-	background-color:#fff;
+	background-color:#f7f7f7;
+}
+
+
+.containerContent{
+	background-color: #fff;
 }
 .dark{
     background-color: #171616;

@@ -27,19 +27,13 @@ $("#pwJudge").click(function(){
 
 });
 $(function() {
-	$("#goto").attr("style","display:none");
-	$("#keyBtn").attr("style","display:none");
+	$("#moreTog").attr("style","display:none");
+	$("#newPageBtn").attr("style","display:none");
+	$("#teamworkBtn").attr("style","display:none");
+	$("#pills-config-tab").attr("style","display:none");
+	
 	$("#shareBtn").attr("style","display:none");
-    var $textarea = $(".content");
-    var content = $textarea.val();
-
-    // Use jQuery Tabby Plugin to enable the tab key on textareas.
-    $textarea.tabby();
-	//$textarea.focus();
-	$textarea.attr("disabled","disabled");
-	$textarea.attr("style","background-color:white;");
-    // Make content available to print.
-    //$(".print").text(content);
+	editor.$textElem.attr('contenteditable', false)
 
     //初次访问
 	$.ajax({
@@ -50,7 +44,7 @@ $(function() {
 		//data:{"1":"1"},
 		success:function(data){
 				if(data.status=='OK'){
-					$textarea.text(data.result);
+					editor.txt.html(data.result);
 					$("#processOK").text(' √');
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();

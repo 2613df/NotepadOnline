@@ -140,12 +140,12 @@ $("#pwJudge").click(function(){
 
 });
 $(function() {
-    var $textarea = $(".content");
-    var content = $textarea.val();
+    //var $textarea = $(".content");
+    var content = editor.txt.html();
 
     // Use jQuery Tabby Plugin to enable the tab key on textareas.
-    $textarea.tabby();
-	$textarea.focus();
+    //$textarea.tabby();
+	//$textarea.focus();
 
     // Make content available to print.
     //$(".print").text(content);
@@ -159,7 +159,7 @@ $(function() {
 		//data:{"1":"1"},
 		success:function(data){
 				if(data.status=='OK'){
-					$textarea.text(data.result);
+					editor.txt.html(data.result);
 					$("#processOK").text(' √');
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();
@@ -185,8 +185,8 @@ $(function() {
 
     // If content changes, update it.
 	setInterval(function() {
-        if (content !== $textarea.val()) {
-            content = $textarea.val();
+        if (content !== editor.txt.html()) {
+            content = editor.txt.html();
             //$("#processOK").text('&nbsp;...');
 			$.ajax({
 				url: './lib/handle.php',
@@ -199,7 +199,7 @@ $(function() {
 							alert(data.status);
 							$("#processOK").text(' X');
 						}else{
-							$textarea.text(data.result);
+							editor.txt.html(data.result);
 							$("#processOK").text(' ...');
 							
 						}
