@@ -20,7 +20,11 @@
 			<a href="/" id="newPageBtn" class="btn btn-light" target="_blank" data-toggle="tooltip" data-placement="bottom" title="新建一个空白文档"><i class="fas fa-plus"></i></a>
 			<a href="javascript:void(0)" class="btn btn-light" onclick="history.go(0)" data-toggle="tooltip" data-placement="bottom" title="刷新页面"><i class="fas fa-sync-alt"></i></a>
 		</div>
-		<span class="navbar-brand">&nbsp;&nbsp;<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</span><span id="processOK"> ...</span>&nbsp;
+		<span class="navbar-brand">&nbsp;&nbsp;<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</span>
+		<small id="processOK" class="text-muted">&nbsp;<div class="spinner-border text-secondary spinner-border-sm" role="status"><span class="sr-only"></span></div>&nbsp;正在读取...</small>
+		&nbsp;
+		
+		<!-- <div class="spinner-border text-secondary spinner-border-sm" role="status"><span class="sr-only"></span></div>&nbsp;正在保存... -->
 		<!-- <div class="btn-group">
 			<a href="#" class="btn btn-light" id="clearNotes">清空</a>
 			<a class="btn btn-dark" id="mode" title="Enable dark mode">🌘</a>
@@ -31,16 +35,16 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<!-- <li class="nav-item <?php ($offline)?(""):(print "active"); ?>">
-					<a class="nav-link" href="/">云笔记</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="http://www.94joy.cn" target="_blank">返回主站</a>
-				</li> -->
+
 			</ul>
+			<div class="broadcastTop alert alert-info mb-0" role="alert">
+			  <strong>广播</strong> 顶部广播.
+
+			</div>
 		  <div class="btn-group">
-			<a tabindex="0" id="teamworkBtn" class="btn btn-light" role="button" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="开发日志" data-content='"协作"功能目前正在开发中，可能会在数个版本后更新，也可能中途被砍掉'><i class="fas fa-user-friends"></i>&nbsp;协作</a>
-			<a href="#" class="btn btn-light" id="shareBtn" data-toggle="tooltip" data-placement="bottom" title="只读分享给他人"><i class="fas fa-share-square"></i>&nbsp;分享</a>
+			<a tabindex="0" id="teamworkBtn" class="btn btn-light" role="button" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="开发日志" data-content='"协作"功能目前正在开发中，可能会在数个版本后更新，也可能中途被砍掉'><i class="fas fa-user-friends"></i></a>
+			<a href="#" class="btn btn-light" id="mobBtn" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="移动端扫码以继续访问" data-html=true data-content='<img width=100% src="http://qr.topscan.com/api.php?text=<?php echo $URL."/".$esL.$name;?>"/>'><i class="fas fa-mobile-alt"></i></a>
+			<a href="#" class="btn btn-light" id="shareBtn" data-toggle="tooltip" data-placement="bottom" title="只读分享给他人"><i class="fas fa-share-square"></i>&nbsp;只读分享</a>
 			<a href="#" class="btn btn-light" id="configBtn" data-toggle="modal" data-target="#configWindow"><i class="fas fa-cog"></i></a>
 		  </div>
 		  <div class="btn-group">
@@ -55,8 +59,8 @@
 		  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="moreBtn">
 			<form class="px-4 py-3" action="/<?php echo $esL;?>" method="POST" target="_blank">
 			<div class="form-group">
-			  <label>找回笔记</label>
-			  <input type="text" class="form-control" name="f" placeholder="笔记后缀，如 <?php print $name;?>">
+			  <label>找回文档</label>
+			  <input type="text" class="form-control" name="f" placeholder="文档名，如 <?php print $name;?>">
 			</div>
 			<button type="submit" class="btn btn-primary">前往</button>
 			</form>

@@ -160,34 +160,33 @@ $(function() {
 		success:function(data){
 				if(data.status=='OK'){
 					editor.txt.html(data.result);
-					$("#processOK").text(' √');
+					$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-muted");
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();
 				}else if(data.status!='notExist'){
-					alert(data.status);
-					$("#processOK").text(' X');
-
+					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
 				}
 
 		},
-		//error:function(){
-		//	alert("请求失败1");
-		//	$("#processOK").text(' X');
-//
-		//},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-				alert(XMLHttpRequest.status);
-				alert(XMLHttpRequest.readyState);
-				alert(errorThrown);
+		error:function(){
+			//alert("请求失败1");
+			//$("#processOK").text(' X');
+			$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
 		},
+		//error: function (XMLHttpRequest, textStatus, errorThrown) {
+		//		alert(XMLHttpRequest.status);
+		//		alert(XMLHttpRequest.readyState);
+		//		alert(errorThrown);
+		//},
 		dataType:"json"
 	});
 
     // If content changes, update it.
+    //var syncSwitch = true;
 	setInterval(function() {
         if (content !== editor.txt.html()) {
             content = editor.txt.html();
-            //$("#processOK").text('&nbsp;...');
+            $("#processOK").html('&nbsp;<div class="spinner-border text-secondary spinner-border-sm" role="status"><span class="sr-only"></span></div>&nbsp;正在保存...').attr("class","text-muted");;
 			$.ajax({
 				url: './lib/handle.php',
 				type: "POST",
@@ -196,18 +195,15 @@ $(function() {
 				//data:{"1":"1"},
 				success:function(data){
 						if(data.status!='OK'){
-							alert(data.status);
-							$("#processOK").text(' X');
+							$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：' + data.status).attr("class","text-danger");
 						}else{
 							editor.txt.html(data.result);
-							$("#processOK").text(' ...');
+							$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;自动保存成功').attr("class","text-muted");;
 							
 						}
 				},
 				error:function(){
-					alert("请求失败");
-					$("#processOK").text(' X');
-
+					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
 				},
 				/*error: function (XMLHttpRequest, textStatus, errorThrown) {
 						alert(XMLHttpRequest.status);
@@ -216,10 +212,6 @@ $(function() {
 				},*/
 				dataType:"json"
 			});
-
-        }else{
-			$("#processOK").text(' √');
-
         }
-	}, 500);
+	}, 1000);
 });

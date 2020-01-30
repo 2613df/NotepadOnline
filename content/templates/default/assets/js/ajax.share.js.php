@@ -31,7 +31,6 @@ $(function() {
 	$("#newPageBtn").attr("style","display:none");
 	$("#teamworkBtn").attr("style","display:none");
 	$("#pills-config-tab").attr("style","display:none");
-	
 	$("#shareBtn").attr("style","display:none");
 	editor.$textElem.attr('contenteditable', false)
 
@@ -45,25 +44,25 @@ $(function() {
 		success:function(data){
 				if(data.status=='OK'){
 					editor.txt.html(data.result);
-					$("#processOK").text(' √');
+					$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-muted");
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();
 				}else if(data.status!='notExist'){
-					alert(data.status);
-					$("#processOK").text(' X');
-
+					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
 				}
+
 		},
-		//error:function(){
-		//	alert("请求失败1");
-		//	$("#processOK").text(' X');
-//
+		error:function(){
+			//alert("请求失败1");
+			//$("#processOK").text(' X');
+			$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+		},
+		//error: function (XMLHttpRequest, textStatus, errorThrown) {
+		//		alert(XMLHttpRequest.status);
+		//		alert(XMLHttpRequest.readyState);
+		//		alert(errorThrown);
 		//},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-				alert(XMLHttpRequest.status);
-				alert(XMLHttpRequest.readyState);
-				alert(errorThrown);
-		},
 		dataType:"json"
 	});
+
 });
