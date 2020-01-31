@@ -37,7 +37,7 @@
         <h3>idea来源</h3>
         <p>Notepad_live | 石墨文档</p>
         <h3>关于NPO</h3>
-        <p>项目地址：<a href="https://github.com/2613df/NotepadOnline" target="_blank">Github</a><br>当前版本：3.1</p>
+        <p>项目地址：<a href="https://github.com/2613df/NotepadOnline" target="_blank">Github</a><br>当前版本：3.2<br>更新内容：<br>1 优化滚动条样式和显示逻辑<br>2 优化保存 / 同步逻辑，支持多终端同步<br>3 优化文档样式<br>4 新增顶部广播<br>5 顶栏不再能被选中<br>6 优化分享功能<br>7 支持导出Word<br>8 修复一定情况下Word导出失败的问题</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">好</button>
@@ -60,33 +60,30 @@
         </button>
       </div>
       <div class="modal-body">
-		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+		<ul class="nav nav-pills mb-3" id="pills-share-tab" role="tablist">
 		  <li class="nav-item">
-		    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">基本</a>
+		    <a class="nav-link active" id="pills-share-tab-std" data-toggle="pill" href="#pills-share-std" role="tab" aria-controls="pills-share-std" aria-selected="true">基本</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">密码</a>
+		    <a class="nav-link" id="pills-share-tab-key" data-toggle="pill" href="#pills-share-key" role="tab" aria-controls="pills-share-key" aria-selected="false">密码</a>
 		  </li>
 		  <!-- <li class="nav-item">
 		    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
 		  </li> -->
 		</ul>
 		<div class="tab-content" id="pills-tabContent">
-		  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+		  <div class="tab-pane fade show active" id="pills-share-std" role="tabpanel" aria-labelledby="pills-share-tab-std">
+			<div id="shareStatus"></div>
 		    <form>
-			<p><b>分享开关：</b>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal" id="shareCloseBtn">取消共享</button>
-			<div class="custom-control custom-switch">
-				<input type="checkbox" class="custom-control-input" id="shareSwitch" checked>
-				<label class="custom-control-label" for="shareSwitch">分享</label>
-				<small>打开开关后，获取链接的人都可以只读访问，但无法修改您的内容</small>
-			</div>
-			</p>
-			<p><b>链接：</b>
+			<b>分享开关：</b><div id="getShareDiv"><a href="#" id="getShareBtn">点此获取当前状态</a></div>
+			<br>
+			<b>分享权限：</b><div class="custom-control custom-switch switchDiv"><input type="checkbox" id="shareRight" class="custom-control-input" disabled><label class="custom-control-label" for="shareRight">只能阅读</label></div>&nbsp;<small>分享链内容无法编辑只能阅读</small>
+			<br><small>开发日志：分享链暂时不支持编辑</small><br>
+			<p><b>固定分享链：</b>
 			<div class="input-group">
 				<input type="text" class="form-control" id="shareUrl" aria-describedby="inputGroupAppend" value="<?php echo $URL."/share/".dencrypt(1,$name);?>" readonly>
 				<div class="input-group-append">
-				  <span class="input-group-text" id="inputGroupPrepend"><a href="#" class="copy" data-clipboard-target="#shareUrl"><i class="fas fa-clipboard-list"></i>复制链接</a></span>
+				  <span class="input-group-text" id="inputGroupPrepend"><a href="#" class="copy" data-clipboard-target="#shareUrl"><i class="fas fa-clipboard-list"></i>&nbsp;复制链接</a></span>
 				</div>
 			</div>
 			</p>
@@ -97,7 +94,9 @@
 
 
 		  </div>
-		  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+		  <div class="tab-pane fade" id="pills-share-key" role="tabpanel" aria-labelledby="pills-share-tab-key">
+		  	<div id="shareKeyStatus"></div>
+		  	<b class="text-danger">请您保管好密码，密码遗失后将无法通过分享链访问您的内容<br>即使关闭分享后再次打开，密码依然存在，直至您在此删除密码</b>
 			  <div class="form-group">
 			    <label class="col-form-label">旧密码：</label>
 			    <input type="text" class="form-control" id="oldPwShare" placeholder="若无请留空">
@@ -152,7 +151,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" id="crtUrl" aria-describedby="inputGroupAppend" value="<?php echo $URL."/".$esL.$name;?>" readonly>
 				<div class="input-group-append">
-				  <span class="input-group-text" id="inputGroupPrepend"><a href="#" class="copy" data-clipboard-target="#crtUrl"><i class="fas fa-clipboard-list"></i>复制链接</a></span>
+				  <span class="input-group-text" id="inputGroupPrepend"><a href="#" class="copy" data-clipboard-target="#crtUrl"><i class="fas fa-clipboard-list"></i>&nbsp;复制链接</a></span>
 				</div>
 			</div>
 			</p>
@@ -164,6 +163,9 @@
 
 		  </div>
 		  <div class="tab-pane fade" id="pills-config-key" role="tabpanel" aria-labelledby="pills-config-tab-key">
+		  	<div id="configKeyStatus"></div>
+		  	<b class="text-danger">请您保管好密码，密码遗失后将无法访问您的文档</b><br>
+		  	
 	        <form>
 	          <div class="form-group">
 	            <label class="col-form-label">旧密码：</label>
@@ -185,8 +187,14 @@
   </div>
 </div>
 
+<div id="toastTop">
+	<div id="toastTopTitle">
+		<span id="toastTopTitleText"></span>
+		<a href="#" id="toastTopClose" class="text-secondary">X</a></div>
+	<div id="toastTopBody"></div>
+</div>
 
-
+<!-- <span>文档导出中，请稍后，Chrome请注意上方提示，Firefox请注意弹出的下载提示</span> -->
 
 
 
@@ -204,11 +212,33 @@ include_once $templateFolder."assets/js/ajax.".$ajaxJs.".js.php";
 ?>
 </script>
 <script src="/<?php echo $templateFolder."assets/js/light.js";?>"></script>
-<script src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<script src="https://cdnjs.loli.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.js"></script>
 <script>
 	var E = window.wangEditor
 	var editor = new E('#toolDiv','#editorDiv')
-	editor.customConfig.zIndex = 1000
+	editor.customConfig.zIndex = 1000;
+	editor.customConfig.menus = [
+    'head',  // 标题
+    'bold',  // 粗体
+    'fontSize',  // 字号
+    'fontName',  // 字体
+    'italic',  // 斜体
+    'underline',  // 下划线
+    'strikeThrough',  // 删除线
+    'foreColor',  // 文字颜色
+    'backColor',  // 背景颜色
+    'link',  // 插入链接
+    'list',  // 列表
+    'justify',  // 对齐方式
+    //'quote',  // 引用
+    //'emoticon',  // 表情
+    //'image',  // 插入图片
+    'table',  // 表格
+    //'video',  // 插入视频
+    //'code',  // 插入代码
+    'undo',  // 撤销
+    'redo'  // 重复
+	];
 	editor.create();
 	$(".w-e-text-container").css('height','calc(100% - 36px)').css('z-index','100');//修正Editor高度
 	$(function () {
@@ -222,5 +252,47 @@ include_once $templateFolder."assets/js/ajax.".$ajaxJs.".js.php";
 <script>
 new ClipboardJS('.copy');
 </script>
+<script src="https://cdnjs.loli.net/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="/assets/js/jquery.wordexport.js"></script>
+<script type="text/javascript">
+// $("#exportBtnGroup").mouseover(function(){
+// 	//$("#exportShowBtn").click();
+// 	$("#exportBtn0").attr("style","display:none");
+// 	$("#exportBtnWord").attr("style","display:block");
+// 	$("#exportBtnPdf").attr("style","display:block");
+
+// }).mouseout(function () {
+//     $("#exportBtn0").attr("style","display:block");
+// 	$("#exportBtnWord").attr("style","display:none");
+// 	$("#exportBtnPdf").attr("style","display:none");
+// });
+function exportWordDo(){
+	//$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO文档副本");
+	$("#toastTop").attr("style","display:block");
+	$("#toastTopTitleText").html('<i class="far fa-check-circle"></i>&nbsp;文档生成完毕');
+	$("#toastTopBody").html('您的文档已开始下载。<br>若未出现下载提示，请确认浏览器是否拦截，以及在文档中是否包含引用、表情、图片、视频、代码等内容');
+	$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?>");
+	setTimeout(function(){$("#toastTop").attr("style","display:none");},5000);
+}
+$("#exportBtnWord").click(function(){
+	//$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO文档副本");
+	$("#toastTop").attr("style","display:block");
+	$("#toastTopTitleText").html('<i class="fas fa-sync-alt savingIcon"></i>&nbsp;文档生成中...');
+	$("#toastTopBody").html('<span class="text-danger font-weight-bold">在文档中请勿包含引用、表情、图片、视频、代码，否则将生成失败或发生遗漏</span><br>文档正在生成导出中，请稍后');
+	setTimeout(exportWordDo,2000);
+
+
+});
+$("#toastTopClose").click(function(){
+	$("#toastTop").attr("style","display:none");
+});
+
+
+
+</script>
+
+
+
+
 </body>
 </html>

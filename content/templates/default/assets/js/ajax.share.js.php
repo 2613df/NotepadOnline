@@ -32,6 +32,8 @@ $(function() {
 	$("#teamworkBtn").attr("style","display:none");
 	$("#pills-config-tab").attr("style","display:none");
 	$("#shareBtn").attr("style","display:none");
+	$(".w-e-toolbar").attr("style","display:none");
+	
 	editor.$textElem.attr('contenteditable', false)
 
     //初次访问
@@ -44,18 +46,18 @@ $(function() {
 		success:function(data){
 				if(data.status=='OK'){
 					editor.txt.html(data.result);
-					$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-muted");
+					$("#savingStatus").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-success");
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();
-				}else if(data.status!='notExist'){
-					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
+				}else if(data.status=='notExist'){
+					$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
+				}else if(data.status=='shareClosed'){
+					$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：分享被关闭').attr("class","text-danger");
 				}
 
 		},
 		error:function(){
-			//alert("请求失败1");
-			//$("#processOK").text(' X');
-			$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+			$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
 		},
 		//error: function (XMLHttpRequest, textStatus, errorThrown) {
 		//		alert(XMLHttpRequest.status);

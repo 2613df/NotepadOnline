@@ -10,25 +10,31 @@ class note{
 		$this->mode = $mode;//0为编辑页,1为分享页
 		$this->pathData = "../".$GLOBALS['tmpFolder']."/".$this->name.".data";
 	}
+	function getUnixTimestamp(){
+		list($s1, $s2) = explode(' ', microtime());
+		return (float)sprintf('%.0f',(floatval($s1) + floatval($s2)) * 1000);
+	}
 	public function noteRead(){
 		if(!$this->isExist()) return json_encode(array("status"=>"notExist"));
 		$asciiProcess = new ascii;
 		$result = $asciiProcess->decode(json_decode(file_get_contents($this->pathData),true)["data"]);
-		if($this->notePermission()) return json_encode(array("status"=>"OK","result"=>$result));
+		if($this->notePermission()==1) return json_encode(array("status"=>"OK","result"=>$result));
+		if($this->notePermission()==-1) return json_encode(array("status"=>"shareClosed"));
 		return json_encode(array("status"=>"permissionDenied"));
 	}
-	function noteChange($data){
+	function noteChange($data,$lastEditTime){
 		$data=(string)$data;//强转字符串,防止其他类型变量引入导致错误
 		$asciiProcess = new ascii;
 		$data = $asciiProcess->encode($data);
 		if(!$this->isExist()){//初次创建
-			file_put_contents($this->pathData, json_encode(array("name"=>$this->name,"creatTime"=>time(),"editTime"=>time(),"epw"=>"","spw"=>"","share"=>'0',"data"=>$data)));
+			file_put_contents($this->pathData, json_encode(array("name"=>$this->name,"creatTime"=>$lastEditTime,"editTime"=>$lastEditTime,"epw"=>"","spw"=>"","share"=>'0',"data"=>$data)));
 			return json_encode(array("status"=>"OK"));
 		}else{
-			if(!$this->notePermission()) return json_encode(array("status"=>"permissionDenied"));
+			if($this->notePermission()!=1) return json_encode(array("status"=>"permissionDenied"));
 			$json=json_decode(file_get_contents($this->pathData),true);
 			$json["editTime"]=time();
 			$json["data"]=$data;
+			$json["editTime"]=$lastEditTime;
 			file_put_contents($this->pathData, json_encode($json));
 			return json_encode(array("status"=>"OK"));
 		}
@@ -53,7 +59,7 @@ class note{
 		if(!$this->isExist()){
 			$this->noteChange('');
 		}
-		if($this->notePermission()){
+		if($this->notePermission()==1){
 			$json=json_decode(file_get_contents($this->pathData),true);
 			$json["share"] = $oc =="OPEN" ? 1 : 0;
 			file_put_contents($this->pathData, json_encode($json));
@@ -85,11 +91,17 @@ class note{
 		$espw = $this->mode ? "spw" : "epw";
 		$es = $this->mode ? "s" : "e";
 		$json=json_decode(file_get_contents($this->pathData),true);
-		if($es=='s' and $json['share']==0) return 0;
+		if($es=='s' and $json['share']=='0') return -1;
 		if(!$json[$espw]) return 1;
 		//读取Session
-		if($_SESSION[$es.dencrypt(1,$this->name)]=="1") return 1;//
+		if($_SESSION[$es.dencrypt(1,$this->name)]=="1") return 1;
+
 		return 0;
+	}
+	function getLastTime(){
+		if(!$this->isExist()) return '00000000';
+		$json=json_decode(file_get_contents($this->pathData),true);
+		return $json['editTime'];
 	}
 }
 ?>

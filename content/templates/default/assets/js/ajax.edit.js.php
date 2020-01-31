@@ -7,15 +7,13 @@ $("#pwChangeShare").click(function(){
 	//data:{"1":"1"},
 	success:function(data){
 			if(data.status=='OK'){
-				alert("修改成功");
+				$("#shareKeyStatus").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>修改成功</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			}else{
-				alert("旧密码错误");
-				//history.go(0);
-				//$("#pwChangeCancel").CLICK();
+				$("#shareKeyStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>修改失败</strong><br>旧密码错误。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			}
 	},
 	error:function(){
-		alert("请求失败");
+		$("#shareKeyStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>修改失败</strong><br>请求错误，请稍后再试或检查网络连接。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 	},
 	/*error: function (XMLHttpRequest, textStatus, errorThrown) {
 			alert(XMLHttpRequest.status);
@@ -27,62 +25,89 @@ $("#pwChangeShare").click(function(){
 
 });
 
-$("#shareCloseBtn").click(function(){
+
+$("#getShareBtn").click(function(){
 	$.ajax({
-	url: './lib/handle.php',
-	type: "POST",
-	//data: "&t=" + encodeURIComponent(content)
-	data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"shareClose"},
-	//data:{"1":"1"},
-	success:function(data){
-			if(data.status=='OK'){
-				alert("关闭分享成功");
-			}else{
-				alert("关闭分享失败，请尝试刷新后再试");
-				history.go(0);
-				//$("#pwChangeCancel").CLICK();
-			}
-	},
-	error:function(){
-		alert("请求失败");
-	},
-	/*error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert(XMLHttpRequest.status);
-			alert(XMLHttpRequest.readyState);
-			alert(errorThrown);
-	},*/
-	dataType:"json"
+		url: './lib/handle.php',
+		type: "POST",
+		data:{"es":"s","name":"<?php echo dencrypt(1,$name)?>","do":"noteRead"},
+		success:function(data){
+				if(data.status=='OK'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)" checked><label class="custom-control-label" for="shareSwitch">当前已打开</label></div>&nbsp;<small>获得分享链的人都可以访问内容</small>');
+				}else if(data.status=='permissionDenied'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)" checked><label class="custom-control-label" for="shareSwitch">当前已打开</label></div>&nbsp;<small>获得分享链的人都可以访问内容</small>');
+				}else if(data.status=='notExist'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)"><label class="custom-control-label" for="shareSwitch">当前已关闭</label></div>&nbsp;<small>只有知道当前文档的地址或文档名才可以访问</small>');
+				}else if(data.status=='shareClosed'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)"><label class="custom-control-label" for="shareSwitch">当前已关闭</label></div>&nbsp;<small>只有知道当前文档的地址或文档名才可以访问</small>');
+				}else{
+					$("#getShareDiv").html('<a href="#" id="getShareBtn">请求失败，出错原因：' + data.status + '点此重试</a>');
+				}
+		},
+		error:function(){
+			$("#getShareDiv").html('<a href="#" id="getShareBtn">请求失败，点此重试</a>');
+		},
+		//error: function (XMLHttpRequest, textStatus, errorThrown) {
+		//		alert(XMLHttpRequest.status);
+		//		alert(XMLHttpRequest.readyState);
+		//		alert(errorThrown);
+		//},
+		dataType:"json"
 	});
 
-});
-$("#shareBtn").click(function(){
-	$.ajax({
-	url: './lib/handle.php',
-	type: "POST",
-	//data: "&t=" + encodeURIComponent(content)
-	data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"shareOpen"},
-	//data:{"1":"1"},
-	success:function(data){
-			if(data.status=='OK'){
-				document.getElementById("shareSuccessBtn").click();
-			}else{
-				alert("分享失败，请尝试刷新后再试");
-				history.go(0);
-				//$("#pwChangeCancel").CLICK();
-			}
-	},
-	error:function(){
-		alert("请求失败");
-	},
-	/*error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert(XMLHttpRequest.status);
-			alert(XMLHttpRequest.readyState);
-			alert(errorThrown);
-	},*/
-	dataType:"json"
-	});
+
 
 });
+
+
+function shareSwitchEve($shareSwitch){
+	if ($shareSwitch == true){
+		$.ajax({
+		url: './lib/handle.php',
+		type: "POST",
+		data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"shareOpen"},
+		success:function(data){
+				if(data.status=='OK'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)" checked><label class="custom-control-label" for="shareSwitch">当前已打开</label></div>&nbsp;<small>获得分享链的人都可以访问内容</small>');
+					$("#shareStatus").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>分享开启成功</strong><br>复制下方 分享链 给您的好友来完成分享吧。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				}else{
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)"><label class="custom-control-label" for="shareSwitch">当前已关闭</label></div>&nbsp;<small>只有知道当前文档的地址或文档名才可以访问</small>');
+					$("#shareStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>分享开启失败</strong><br>请稍候再试吧。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				}
+		},
+		error:function(){
+			$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)"><label class="custom-control-label" for="shareSwitch">当前已关闭</label></div>&nbsp;<small>只有知道当前文档的地址或文档名才可以访问</small>');
+			$("#shareStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>分享开启失败</strong><br>网络请求失败，请稍候再试吧。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+		},
+		dataType:"json"
+		});
+	}else{
+		$.ajax({
+		url: './lib/handle.php',
+		type: "POST",
+		//data: "&t=" + encodeURIComponent(content)
+		data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"shareClose"},
+		//data:{"1":"1"},
+		success:function(data){
+				if(data.status=='OK'){
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)"><label class="custom-control-label" for="shareSwitch">当前已关闭</label></div>&nbsp;<small>只有知道当前文档的地址或文档名才可以访问</small>');
+					$("#shareStatus").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>分享关闭成功</strong><br>链接已无法访问。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+				}else{
+					$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)" checked><label class="custom-control-label" for="shareSwitch">当前已打开</label></div>&nbsp;<small>获得分享链的人都可以访问内容</small>');
+					$("#shareStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>分享关闭失败</strong><br>请稍候再试吧。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+				}
+		},
+		error:function(){
+			$("#getShareDiv").html('<div class="custom-control custom-switch switchDiv"><input type="checkbox" class="custom-control-input" id="shareSwitch" onclick="shareSwitchEve(this.checked)" checked><label class="custom-control-label" for="shareSwitch">当前已打开</label></div>&nbsp;<small>获得分享链的人都可以访问内容</small>');
+			$("#shareStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>分享关闭失败</strong><br>网络请求失败，请稍候再试吧。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+		},
+		dataType:"json"
+		});
+	}
+};
+
+
 $("#pwChange").click(function(){
 	$.ajax({
 	url: './lib/handle.php',
@@ -92,15 +117,14 @@ $("#pwChange").click(function(){
 	//data:{"1":"1"},
 	success:function(data){
 			if(data.status!='OK'){
-				alert("旧密码错误");
+				$("#configKeyStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>修改失败</strong><br>旧密码错误。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			}else{
-				alert("修改成功");
+				$("#configKeyStatus").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>修改成功</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 				history.go(0);
-				//$("#pwChangeCancel").CLICK();
 			}
 	},
 	error:function(){
-		alert("请求失败");
+		$("#configKeyStatus").html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>修改失败</strong><br>请求错误，请稍后再试或检查网络连接。<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 	},
 	/*error: function (XMLHttpRequest, textStatus, errorThrown) {
 			alert(XMLHttpRequest.status);
@@ -139,39 +163,34 @@ $("#pwJudge").click(function(){
 	});
 
 });
+
 $(function() {
-    //var $textarea = $(".content");
-    var content = editor.txt.html();
 
-    // Use jQuery Tabby Plugin to enable the tab key on textareas.
-    //$textarea.tabby();
-	//$textarea.focus();
+	var content = editor.txt.html();
+	var $lastEditTime = 0;
 
-    // Make content available to print.
-    //$(".print").text(content);
-
-    //初次访问
-	$.ajax({
+	$.ajax({//初次访问
 		url: './lib/handle.php',
 		type: "POST",
 		//data: "&t=" + encodeURIComponent(content)
 		data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"noteRead"},
 		//data:{"1":"1"},
 		success:function(data){
-				if(data.status=='OK'){
+				if(data.status=='OK' || data.status=='notExist'){
 					editor.txt.html(data.result);
-					$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-muted");
+					content = editor.txt.html();
+					$("#savingStatus").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;请求成功').attr("class","text-success");
 				}else if(data.status=='permissionDenied'){
 					document.getElementById("keyJudgeBtn").click();
 				}else if(data.status!='notExist'){
-					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
+					$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，失败原因：' + data.status).attr("class","text-danger");
 				}
 
 		},
 		error:function(){
 			//alert("请求失败1");
-			//$("#processOK").text(' X');
-			$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+			//$("#savingStatus").text(' X');
+			$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;请求失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
 		},
 		//error: function (XMLHttpRequest, textStatus, errorThrown) {
 		//		alert(XMLHttpRequest.status);
@@ -179,31 +198,59 @@ $(function() {
 		//		alert(errorThrown);
 		//},
 		dataType:"json"
-	});
+	});	
 
-    // If content changes, update it.
-    //var syncSwitch = true;
-	setInterval(function() {
-        if (content !== editor.txt.html()) {
+
+	function sync(){
+	    
+		$.ajax({
+			url: './lib/handle.php',
+			type: "POST",
+			//data: "&t=" + encodeURIComponent(content)
+			data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"noteRead"},
+			//data:{"1":"1"},
+			success:function(data){
+					if(data.status=='OK' || data.status=='notExist'){
+						editor.txt.html(data.result);
+						content = editor.txt.html();
+						$("#savingStatus").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;同步成功').attr("class","text-success");
+					}else if(data.status!='notExist'){
+						$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;同步失败，失败原因：' + data.status).attr("class","text-danger");
+					}
+
+			},
+			error:function(){
+				$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;同步失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+			},
+			//error: function (XMLHttpRequest, textStatus, errorThrown) {
+			//		alert(XMLHttpRequest.status);
+			//		alert(XMLHttpRequest.readyState);
+			//		alert(errorThrown);
+			//},
+			dataType:"json"
+		});	
+
+	}
+
+	function updateN() {
             content = editor.txt.html();
-            $("#processOK").html('&nbsp;<div class="spinner-border text-secondary spinner-border-sm" role="status"><span class="sr-only"></span></div>&nbsp;正在保存...').attr("class","text-muted");;
 			$.ajax({
 				url: './lib/handle.php',
 				type: "POST",
 				//data: "&t=" + encodeURIComponent(content)
-				data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"noteChange","data":content},
+				data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"noteChange","data":content,"lastEditTime":$lastEditTime},
 				//data:{"1":"1"},
 				success:function(data){
 						if(data.status!='OK'){
-							$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：' + data.status).attr("class","text-danger");
+							$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：' + data.status).attr("class","text-danger");
 						}else{
 							editor.txt.html(data.result);
-							$("#processOK").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;自动保存成功').attr("class","text-muted");;
+							$("#savingStatus").html('&nbsp;<i class="far fa-check-circle"></i>&nbsp;自动保存成功').attr("class","text-success");;
 							
 						}
 				},
 				error:function(){
-					$("#processOK").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+					$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;保存失败，请务必在本地自行保存您的笔记，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
 				},
 				/*error: function (XMLHttpRequest, textStatus, errorThrown) {
 						alert(XMLHttpRequest.status);
@@ -212,6 +259,37 @@ $(function() {
 				},*/
 				dataType:"json"
 			});
+	};
+
+	setInterval(function() {
+        if (content != editor.txt.html()) {
+            content = editor.txt.html();
+            $("#savingStatus").html('&nbsp;<i class="fas fa-sync-alt savingIcon"></i>&nbsp;正在同步...').attr("class","text-muted");
+			//setTimeout(updateN, 1000 );
+			$lastEditTime = new Date().getTime();
         }
-	}, 1000);
+	}, 500);
+	setInterval(function() {
+		$.ajax({
+			url: './lib/handle.php',
+			type: "POST",
+			data:{"es":"<?php echo $es?>","name":"<?php echo $name?>","do":"getLastTime"},
+			success:function(data){
+					//alert("data.result");
+					//alert("Stime:" + parseInt(data.result) + "-Atime:" + $lastEditTime);
+					if(parseInt(data.result) > $lastEditTime){
+						$("#savingStatus").html('&nbsp;<i class="fas fa-sync-alt savingIcon"></i>&nbsp;正在同步...').attr("class","text-muted");
+						sync();
+						$lastEditTime=parseInt(data.result);
+					}else if(parseInt(data.result) < $lastEditTime){
+						updateN();
+					}
+			},
+			error:function(){
+				$("#savingStatus").html('&nbsp;<i class="far fa-times-circle"></i>&nbsp;同步失败，失败原因：连接失败，请检查网络连接').attr("class","text-danger");
+			},
+			dataType:"json"
+		});
+
+	}, 1500);
 });
