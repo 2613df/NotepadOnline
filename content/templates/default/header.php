@@ -14,23 +14,21 @@
 	
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light">
+	<nav class="navbar navbar-expand-lg navbar-light navbarTop">
 	<!-- <div class="container"> -->
 		<div class="btn-group">
-			<a href="/" id="newPageBtn" class="btn btn-light" target="_blank" data-toggle="tooltip" data-placement="bottom" title="新建一个空白文档"><i class="fas fa-plus"></i></a>
+			<a href="/" id="newPageBtn" class="btn btn-primary" target="_blank" data-toggle="tooltip" data-placement="bottom" title="新建一个空白文档"><i class="fas fa-plus"></i></a>
 			<a href="javascript:void(0)" class="btn btn-light" onclick="history.go(0)" data-toggle="tooltip" data-placement="bottom" title="刷新页面"><i class="fas fa-sync-alt"></i></a>
 		</div>
 		<span class="navbar-brand">&nbsp;&nbsp;<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</span>
 		<small id="savingStatus" class="text-muted">&nbsp;<i class="fas fa-download"></i>&nbsp;正在读取...</small>
 		&nbsp;
-		
-		
 		<!-- <div class="spinner-border text-secondary spinner-border-sm" role="status"><span class="sr-only"></span></div>&nbsp;正在保存... -->
 		<!-- <div class="btn-group">
 			<a href="#" class="btn btn-light" id="clearNotes">清空</a>
 			<a class="btn btn-dark" id="mode" title="Enable dark mode">🌘</a>
 		</div> -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler navbarTopCollapse" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -41,8 +39,8 @@
 <!-- 			<div class="broadcastTop alert alert-info mb-0" role="alert">
 			  <strong>广播</strong> 顶部广播
 			</div> -->
-			<div class="broadcastTop text-info">
-			  <strong>广播DEMO</strong> 企业版同步更快、多人协同、版本回溯
+			<div class="broadcastTop text-info d-none d-lg-block">
+			  <strong>广播DEMO</strong> 这里是广播DEMO内容
 			</div>
 		  <div class="btn-group">
 			<a tabindex="0" id="teamworkBtn" class="btn btn-light" role="button" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="开发日志" data-content='"协作"功能目前正在开发中，可能会在数个版本后更新，也可能中途被砍掉'><i class="fas fa-user-friends"></i></a>

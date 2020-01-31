@@ -34,10 +34,10 @@
         <p>Alex Lee</p>
         <h3>使用的开源程序</h3>
         <p>Bootstrap | Jquery | Popper | font-awesome | wangeditor | clipboard.js | QRCode.js | FileSaver.js | jquery.wordexport.js
-        <h3>idea来源</h3>
+        <h3>创意来源</h3>
         <p>Notepad_live | 石墨文档</p>
         <h3>关于NPO</h3>
-        <p>项目地址：<a href="https://github.com/2613df/NotepadOnline" target="_blank">Github</a><br>当前版本：3.2<br>更新内容：<br>1 优化滚动条样式和显示逻辑<br>2 优化保存 / 同步逻辑，支持多终端同步<br>3 优化文档样式<br>4 新增顶部广播<br>5 顶栏不再能被选中<br>6 优化分享功能<br>7 支持导出Word<br>8 修复一定情况下Word导出失败的问题</p>
+        <p>项目地址：<a href="https://github.com/2613df/NotepadOnline" target="_blank">Github</a><br>当前版本：3.21<br>更新内容：<br>1 优化滚动条样式和显示逻辑<br>2 优化保存 / 同步逻辑，支持多终端同步<br>3 优化文档样式<br>4 新增顶部广播<br>5 顶栏不再能被选中<br>6 优化分享功能<br>7 支持导出Word<br>8 修复一定情况下Word导出失败的问题<br>9 捕获组合按键，优化体验<br>10 优化工具栏<br>11 进一步优化移动端(含iPad)体验</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">好</button>
@@ -190,109 +190,134 @@
 <div id="toastTop">
 	<div id="toastTopTitle">
 		<span id="toastTopTitleText"></span>
-		<a href="#" id="toastTopClose" class="text-secondary">X</a></div>
+		<a href="#" id="toastTopClose">&times;</a></div>
 	<div id="toastTopBody"></div>
 </div>
-
-<!-- <span>文档导出中，请稍后，Chrome请注意上方提示，Firefox请注意弹出的下载提示</span> -->
-
-
-
-
-
 
 <script src="https://cdnjs.loli.net/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.loli.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script crossorigin="anonymous" src="https://cdnjs.loli.net/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
-<script src="/<?php echo $templateFolder."assets/js/jquery.textarea.js";?>"></script>
 <script type="text/javascript">
 <?php
 $ajaxJs = $es=='e'? "edit":"share";
 include_once $templateFolder."assets/js/ajax.".$ajaxJs.".js.php";
 ?>
 </script>
-<script src="/<?php echo $templateFolder."assets/js/light.js";?>"></script>
+<!-- <script src="/<?php echo $templateFolder."assets/js/light.js";?>"></script> -->
 <script src="https://cdnjs.loli.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.js"></script>
-<script>
-	var E = window.wangEditor
-	var editor = new E('#toolDiv','#editorDiv')
-	editor.customConfig.zIndex = 1000;
-	editor.customConfig.menus = [
-    'head',  // 标题
-    'bold',  // 粗体
-    'fontSize',  // 字号
-    'fontName',  // 字体
-    'italic',  // 斜体
-    'underline',  // 下划线
-    'strikeThrough',  // 删除线
-    'foreColor',  // 文字颜色
-    'backColor',  // 背景颜色
-    'link',  // 插入链接
-    'list',  // 列表
-    'justify',  // 对齐方式
-    //'quote',  // 引用
-    //'emoticon',  // 表情
-    //'image',  // 插入图片
-    'table',  // 表格
-    //'video',  // 插入视频
-    //'code',  // 插入代码
-    'undo',  // 撤销
-    'redo'  // 重复
-	];
-	editor.create();
-	$(".w-e-text-container").css('height','calc(100% - 36px)').css('z-index','100');//修正Editor高度
-	$(function () {
-	  $('[data-toggle="popover"]').popover()
-	})
-	$(function () {
-	  $('[data-toggle="tooltip"]').tooltip()
-	})
-</script>
 <script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-<script>
-new ClipboardJS('.copy');
-</script>
 <script src="https://cdnjs.loli.net/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 <script src="/assets/js/jquery.wordexport.js"></script>
-<script type="text/javascript">
-// $("#exportBtnGroup").mouseover(function(){
-// 	//$("#exportShowBtn").click();
-// 	$("#exportBtn0").attr("style","display:none");
-// 	$("#exportBtnWord").attr("style","display:block");
-// 	$("#exportBtnPdf").attr("style","display:block");
+<script>
+//编辑器初始化
+var E = window.wangEditor
+var editor = new E('#toolDiv','#editorDiv')
+editor.customConfig.zIndex = 1000;
+editor.customConfig.menus = [
+'head',  // 标题
+'bold',  // 粗体
+'fontSize',  // 字号
+'fontName',  // 字体
+'italic',  // 斜体
+'underline',  // 下划线
+'strikeThrough',  // 删除线
+'foreColor',  // 文字颜色
+'backColor',  // 背景颜色
+'link',  // 插入链接
+'list',  // 列表
+'justify',  // 对齐方式
+//'quote',  // 引用
+//'emoticon',  // 表情
+//'image',  // 插入图片
+'table',  // 表格
+//'video',  // 插入视频
+//'code',  // 插入代码
+'undo',  // 撤销
+'redo'  // 重复
+];
+editor.create();
+$(function () {
+  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="tooltip"]').tooltip()
+  // $('.w-e-menu').eq(6).after('<div class="visible-md-block">');
+  // $('.w-e-menu').eq(13).after('</div>');
+  $('.w-e-toolbar').attr("class","w-e-toolbar d-none d-lg-block")
+})
 
-// }).mouseout(function () {
-//     $("#exportBtn0").attr("style","display:block");
-// 	$("#exportBtnWord").attr("style","display:none");
-// 	$("#exportBtnPdf").attr("style","display:none");
-// });
+
+
+
+
+
+//复制剪切板初始化
+new ClipboardJS('.copy');
+
+//toast初始化
+var closeToastSTO;
+
+//导出word初始化
 function exportWordDo(){
-	//$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO文档副本");
+	clearTimeout(closeToastSTO);
 	$("#toastTop").attr("style","display:block");
 	$("#toastTopTitleText").html('<i class="far fa-check-circle"></i>&nbsp;文档生成完毕');
 	$("#toastTopBody").html('您的文档已开始下载。<br>若未出现下载提示，请确认浏览器是否拦截，以及在文档中是否包含引用、表情、图片、视频、代码等内容');
 	$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?>");
-	setTimeout(function(){$("#toastTop").attr("style","display:none");},5000);
+	closeToastSTO = setTimeout(function(){$("#toastTop").attr("style","display:none");},5000);
 }
 $("#exportBtnWord").click(function(){
-	//$(".w-e-text").wordExport("<?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO文档副本");
+	clearTimeout(closeToastSTO);
 	$("#toastTop").attr("style","display:block");
 	$("#toastTopTitleText").html('<i class="fas fa-sync-alt savingIcon"></i>&nbsp;文档生成中...');
 	$("#toastTopBody").html('<span class="text-danger font-weight-bold">在文档中请勿包含引用、表情、图片、视频、代码，否则将生成失败或发生遗漏</span><br>文档正在生成导出中，请稍后');
 	setTimeout(exportWordDo,2000);
-
-
 });
 $("#toastTopClose").click(function(){
 	$("#toastTop").attr("style","display:none");
 });
 
-
-
+//组合键捕获初始化
+$(function(){
+ 
+	document.addEventListener('keydown', function(e){
+		e = window.event || e;
+		var keycode = e.keyCode || e.which;     
+ 
+		// if(e.ctrlKey && keycode == 87){   //屏蔽Ctrl+w  
+  //           e.preventDefault();
+  //           window.event.returnValue = false;  
+  //        }
+  //        if(e.ctrlKey && keycode == 82){   //Ctrl + R 
+  //           e.preventDefault(); 
+  //           window.event.returnValue= false; 
+  //        }
+         if(e.ctrlKey && keycode== 83){ //Ctrl + S  
+         	clearTimeout(closeToastSTO);
+            e.preventDefault();
+            window.event.returnValue= false;
+			$("#toastTop").attr("style","display:block");
+			$("#toastTopTitleText").html('小贴士');
+			$("#toastTopBody").html('文档会自动保存');
+			closeToastSTO = setTimeout(function(){$("#toastTop").attr("style","display:none");},2000);
+         }
+ 
+         // if(e.ctrlKey && keycode == 72){   //Ctrl + H 
+         //    e.preventDefault();
+         //    window.event.returnValue= false; 
+         // }
+         // if(e.ctrlKey && keycode == 74){   //Ctrl + J
+         //    e.preventDefault(); 
+         //    window.event.returnValue= false; 
+         // }
+         // if(e.ctrlKey && keycode == 75){   //Ctrl + K 
+         //    e.preventDefault();
+         //    window.event.returnValue= false; 
+         // }
+         // if(e.ctrlKey && keycode == 78){   //Ctrl + N
+         //    e.preventDefault();
+         //    window.event.returnValue= false; 
+         // }        
+	});
+});
 </script>
-
-
-
-
 </body>
 </html>

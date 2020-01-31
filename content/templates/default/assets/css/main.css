@@ -17,15 +17,49 @@
 /*	height:inherit !important;
 */}
 .w-e-toolbar{
-	flex-wrap: wrap;
+	/*flex-wrap: wrap;*/
 	background-color:#f7f7f7;
+	/*justify-content: center;*/
+	/*height:34px;*/
+	/*height: 300px;*/
+/*	overflow-x: visible;
+	overflow-y: visible;*/
+	width:100%;
+	z-index: 25000;
+/*	overflow-x: auto;
+	overflow-y: visible;*/
 	/*line-height: 1.5rem;*/
+	/*overflow: hidden;*/
+	text-align: center !important;
+}
+#toolNone{
+	text-align: center;
+	width:100%;
+	background-color:#f7f7f7;
+	padding-top:5px;
+	height:34px;
+}
+.navbarTop{
+	/*z-index: 30000;*/
+	height: 3.5rem;
+}
+.navbarTopCollapse{
+	position: absolute;
+	top:.5rem;
+	right:.5rem;
+}
+#navbarSupportedContent{
+	background-color: #fff;
+}
+.w-e-menu{
+	display: inline-block;
 }
 .dropdown-menu.show{
 	z-index: 20000;
 }
 .modal{
 	z-index: 20000;
+	user-select: none;
 }
 .broadcastTop{
   position: absolute;
@@ -66,9 +100,9 @@ padding-left: 1rem !important;
 
 
 }*/
-.containerContent{
+/*.containerContent{
 	height:calc(100% - 3.5rem);
-}
+}*/
 /*.containerTips,.containerForm{
 	height:calc(100% - 6rem);
 }
@@ -109,47 +143,14 @@ margin:auto;
     resize: none;
 	margin-bottom:0;/*抵消BS4.2的问题*/
 }
-/*.content:hover{
-	color: #495057;
-	border-color: #a5d9f3;
+#editorDiv{
+	height:calc(100% - 34px);
 }
-.content:focus{
-	color: #495057;
-	border-color: #4cb4e7;
-	box-shadow: 0 0 0 .2rem rgba(165,217,243,.25);
-}*/
-.footer {
-	/*position:fixed;
-	bottom:0rem;
-	height:auto;*/
-	/*width:100%;
-	text-align:center;*/
-
+.docDiv{
+	height:calc(100% - 3.5rem);
 }
-/*.bodyBtn{padding-bottom:8.5rem;}
-.bodyNoBtn{padding-bottom:2.5rem;}
-.footerBtn{height:5rem;}
-.footerNoBtn{height:2.5rem;}*/
-/*#controls {
-	padding:.5rem;
-	text-align:center;
-	margin:0 auto;
-	background-color:#f9f9fa;
-}
-pre {
-	white-space:pre-wrap;
-	white-space:-moz-pre-wrap;
-	white-space:-pre-wrap;
-	white-space:-o-pre-wrap;
-	word-wrap:break-word;
-}*/
 body {
 	background-color:#f7f7f7;
-}
-
-
-.containerContent{
-	background-color: #fff;
 }
 .dark{
     background-color: #171616;
@@ -158,8 +159,6 @@ body {
 .dark nav{
     background-color: #666666;
     color: #dedede;
-
-
 }
 .dark .content,.dark .content:hover,.dark .content:focus {
     background-color: #171616;
@@ -170,17 +169,21 @@ body {
 .dark #controls{
     background-color: #666666;
     color: #dedede;
-
 }
 .w-e-text{
 	overflow-y:auto !important;
 	padding:0 1rem !important;
 }
-
+#editorDiv{
+	background-color: #fff;
+}
+.w-e-text{
+	margin-right: 10rem !important;
+}
 /*滚动条整体样式*/
 ::-webkit-scrollbar {
 	width: 10px;
-	/*height: 1px;*/
+	height: 10px;
 }
 /*滚动条滑块*/
 /*::-webkit-scrollbar-thumb {
@@ -290,7 +293,15 @@ height:100%;
 	border-bottom-right-radius:.25em;
 }
 #toastTopClose{
+	color: #6c757d;
 	float:right;
+	font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+#toastTopClose:hover{
+	color: #000;
+	text-decoration: none;
 }
 #moreTog{
 	display: inline-block;
