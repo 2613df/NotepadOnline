@@ -22,7 +22,7 @@ class note{
 		if($this->notePermission()==-1) return json_encode(array("status"=>"shareClosed"));
 		return json_encode(array("status"=>"permissionDenied"));
 	}
-	function noteChange($data,$lastEditTime){
+	function noteChange($data,$lastEditTime='00000000'){
 		$data=(string)$data;//强转字符串,防止其他类型变量引入导致错误
 		$asciiProcess = new ascii;
 		$data = $asciiProcess->encode($data);

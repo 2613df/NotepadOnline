@@ -33,7 +33,7 @@
         <h3>感谢捐助</h3>
         <p>Alex Lee</p>
         <h3>使用的开源程序</h3>
-        <p>Bootstrap | Jquery | Popper | font-awesome | wangeditor | clipboard.js | QRCode.js</p>
+        <p>Bootstrap | Jquery | Popper | font-awesome | wangeditor | clipboard.js | QRCode.js | FileSaver.js | jquery.wordexport.js
         <h3>idea来源</h3>
         <p>Notepad_live | 石墨文档</p>
         <h3>关于NPO</h3>

@@ -38,9 +38,11 @@
 			<ul class="navbar-nav mr-auto">
 
 			</ul>
-			<div class="broadcastTop alert alert-info mb-0" role="alert">
-			  <strong>广播</strong> 顶部广播.
-
+<!-- 			<div class="broadcastTop alert alert-info mb-0" role="alert">
+			  <strong>广播</strong> 顶部广播
+			</div> -->
+			<div class="broadcastTop text-info">
+			  <strong>广播DEMO</strong> 企业版同步更快、多人协同、版本回溯
 			</div>
 		  <div class="btn-group">
 			<a tabindex="0" id="teamworkBtn" class="btn btn-light" role="button" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="开发日志" data-content='"协作"功能目前正在开发中，可能会在数个版本后更新，也可能中途被砍掉'><i class="fas fa-user-friends"></i></a>
