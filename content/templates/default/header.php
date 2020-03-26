@@ -8,9 +8,9 @@
     <meta name="keywords" content="跨端传输,同屏传输,在线笔记,简单,简约,笔记,94Joy,NotePad,NPO,NotePadOnLine" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php ($esN)?(print $name."(只读)"):(print $name);?> - NPO</title>
-	<link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="/<?php echo $templateFolder."assets/css/main.css";?>" crossorigin="anonymous">
-	<link crossorigin="anonymous" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+	<link crossorigin="anonymous" href="http://cdn.staticfile.org/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 	
 </head>
 <body>

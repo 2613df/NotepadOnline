@@ -194,9 +194,9 @@
 	<div id="toastTopBody"></div>
 </div>
 
-<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.loli.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script crossorigin="anonymous" src="https://cdnjs.loli.net/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<script src="http://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="http://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script crossorigin="anonymous" src="http://cdn.staticfile.org/font-awesome/5.13.0/js/all.min.js"></script>
 <script type="text/javascript">
 <?php
 $ajaxJs = $es=='e'? "edit":"share";
@@ -204,9 +204,9 @@ include_once $templateFolder."assets/js/ajax.".$ajaxJs.".js.php";
 ?>
 </script>
 <!-- <script src="/<?php echo $templateFolder."assets/js/light.js";?>"></script> -->
-<script src="https://cdnjs.loli.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.js"></script>
-<script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-<script src="https://cdnjs.loli.net/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<script src="https://cdn.staticfile.org/wangEditor/10.0.13/wangEditor.min.js"></script>
+<script src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script>
+<script src="https://cdn.staticfile.org/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 <script src="/assets/js/jquery.wordexport.js"></script>
 <script>
 //编辑器初始化
