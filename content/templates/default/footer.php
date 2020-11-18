@@ -89,7 +89,7 @@
 			</p>
 			<p><b>二维码：</b><br>
 
-			<img src="http://qr.topscan.com/api.php?text=<?php echo $URL."/share/".dencrypt(1,$name);?>"/></p>
+			<img src="/lib/qr.php?urlcode=<?php echo $URL."/share/".dencrypt(1,$name);?>"/></p>
 			</form>
 
 
@@ -157,7 +157,7 @@
 			</p>
 			<p><b>二维码：</b><br>
 
-			<img src="http://qr.topscan.com/api.php?text=<?php echo $URL."/".$esL.$name;?>"/></p>
+			<img src="/lib/qr.php?urlcode=<?php echo $URL."/".$esL.$name;?>"/></p>
 			</form>
 
 
